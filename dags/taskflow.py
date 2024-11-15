@@ -40,8 +40,9 @@ def taskflow():
         return sums
     
     def returnListOfSums(startNum:int, endNum: int) -> List[int]:
-        logger = logging.getLogger("airflow.task")
-        logger.info("returnListOfSums")
+        # logger = logging.getLogger("airflow.task")
+        # logger.info("returnListOfSums")
+        print('hello', startNum, endNum)
         ans = []
         for i in range(startNum, endNum):
             ans.append(squaresum(i))
