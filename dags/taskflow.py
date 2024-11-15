@@ -120,9 +120,11 @@ def taskflow():
     callable_res = callable_virtualenv(seq_res)
     print_res = print_numpy(seq_res)
     exec_res = pythonoperator_kubeExecutor(seq_res)
-    seq_res >> wait_tasks()
 
-    [callable_res ,print_res , exec_res, wait_tasks()] >> mark_end()
+    wait_res = wait_tasks()
+    seq_res >> wait_res
+
+    [callable_res ,print_res , exec_res, wait_res] >> mark_end()
 
 
     # mark_st
