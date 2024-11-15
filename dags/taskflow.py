@@ -3,7 +3,6 @@ import logging
 from typing import List
 import random
 
-from networkx import number_strongly_connected_components
 from airflow.decorators import dag, task
 from airflow.operators.python_operator import PythonOperator
 
