@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 import logging
+import time
 from typing import List
 import random
 
@@ -102,13 +103,26 @@ def taskflow():
         arr = np.array(numbers)
         print(arr)
     
+    @task(retries=3, retry_delay=timedelta(minutes=5))
+    def wait_tasks() -> None:
+        time.sleep(30)
+        
+    @task
+    def mark_end()-> None:
+        print("Ending")
+        logger.info("Mark Ending")
+
 
     
     mark_start()
     sum = sequence_sum_of_squares(local_executor())
-    callable_virtualenv(sum)
+    
     print_numpy(sum)
     pythonoperator_kubeExecutor(sum)
+    wait_tasks() >> mark_end()
+
+    # chain(local_executor, sequence_sum_of_squares, [print_numpy, pythonoperator_kubeExecutor, wait_tasks])
+
 
 
 taskflow()
