@@ -106,7 +106,8 @@ def taskflow():
     
     @task(retries=3, retry_delay=timedelta(minutes=5))
     def wait_tasks() -> None:
-        time.sleep(30)
+        raise ValueError("wait_tasks")
+        # time.sleep(30)
         
     @task
     def mark_end()-> None:
@@ -125,13 +126,6 @@ def taskflow():
     seq_res >> wait_res
 
     [callable_res ,print_res , exec_res, wait_res] >> mark_end()
-
-
-    # mark_st
-    # 
-    # 
-    # art() >> local_executor() >> sequence_sum_of_squares >> [callable_virtualenv, print_numpy, pythonoperator_kubeExecutor, wait_tasks] >> mark_end
-    # chain(mark_start, local_executor, sequence_sum_of_squares, [callable_virtualenv, print_numpy, pythonoperator_kubeExecutor, wait_tasks], mark_end)
 
 
 taskflow()
