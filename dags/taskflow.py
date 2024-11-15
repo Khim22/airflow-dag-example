@@ -65,10 +65,11 @@ def taskflow():
         library before it is installed.
         """
         from time import sleep
-
+        import logging
         from colorama import Back, Fore, Style
 
-
+        logger = logging.getLogger("airflow.task")
+        logger.setLevel(logging.DEBUG)
         logger.info(f"passing from previous step {squares}")
         print(Fore.RED + "some red text")
         print(Back.GREEN + "and with a green background")
