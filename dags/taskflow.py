@@ -33,7 +33,7 @@ def taskflow():
     
     @task(retries=3, retry_delay=timedelta(minutes=5))
     def sequence_sum_of_squares(numbers: List[int]) -> List[int]:
-        logger.info("Executing sequence_sum_of_squares task")
+        logger.info("Executing sequence_sum_of_squares task", numbers)
         if len(numbers) < 2:
             raise ValueError("Input list should contain at least 2 numbers")
         sums = PythonOperator(task_id='returnListOfSums',task_python_callable=returnListOfSums, op_kwargs={"startNum":numbers[0], "endNum": numbers[1]})
