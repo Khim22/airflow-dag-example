@@ -15,7 +15,7 @@ def taskflow():
     def local_executor() -> List[int]:
         logger.info("Executing local_executor task")
         # Simulating a long-running task
-        res = returnListOfSums(13)
+        res = returnListOfSums(2)
         logger.info(f"Local executor task completed with result: {res}")
         return res
     

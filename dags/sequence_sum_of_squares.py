@@ -6,7 +6,7 @@ def returnListOfSums(endNum: int) -> List[int]:
 
 def returnListOfSums(startNum:int, endNum: int) -> List[int]:
     ans = []
-    for i in range(endNum):
+    for i in range(startNum, endNum):
         ans.append(squaresum(i))
     return ans
 
