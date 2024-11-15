@@ -5,9 +5,6 @@ from typing import List
 import random
 
 from airflow.decorators import dag, task
-from airflow.operators.python_operator import PythonOperator
-from airflow.models.baseoperator import chain
-
 
 @dag(schedule="@daily", start_date=datetime(2021, 12, 1), catchup=False)
 def taskflow():
