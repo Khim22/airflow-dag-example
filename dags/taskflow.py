@@ -26,7 +26,8 @@ def taskflow():
         random.seed(5)
         first  = random.randint(1,5)
         second = random.randint(1,5)
-        res = [first, second].sort()
+        res = [first, second]
+        res.sort()
         logger.info(f"Local executor task completed with result: {res}")
         return res
     
