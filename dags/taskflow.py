@@ -24,7 +24,7 @@ def taskflow():
         # logger.info(f"Local executor task completed with result: {res}")
         # return res
     
-    local_executor()
+    mark_start >> local_executor()
 
-mark_start >> taskflow()
+taskflow()
         
