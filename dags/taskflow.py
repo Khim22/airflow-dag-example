@@ -40,9 +40,13 @@ def taskflow():
             ans.append(squaresum(i))
         logger.info(f"Sequence sum of squares task completed with result: {ans}")
         return ans
+    
+
+    # def 
 
 
     def squaresum(n: int)-> int:
+        logger.info("squaresum", n)
         print('bye', n)
         # Iterate i from 1
         # and n finding
