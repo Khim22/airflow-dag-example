@@ -35,9 +35,9 @@ def taskflow():
         logger.info("Executing sequence_sum_of_squares task")
         if len(numbers) < 2:
             raise ValueError("Input list should contain at least 2 numbers")
-        sums = PythonOperator(python_callable=returnListOfSums, op_kwargs={"startNum":numbers[0], "endNum": numbers[1]})
-        logger.info(f"Sequence sum of squares task completed with result: {sums}")
-        return sums
+        # sums = PythonOperator(python_callable=returnListOfSums, op_kwargs={"startNum":numbers[0], "endNum": numbers[1]})
+        # logger.info(f"Sequence sum of squares task completed with result: {sums}")
+        # return sums
     
     mark_start()
     sequence_sum_of_squares(local_executor())
