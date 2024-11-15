@@ -94,12 +94,13 @@ def taskflow():
     @task(retries=3, retry_delay=timedelta(minutes=1), executor_config={"KubernetesExecutor": {"image": "publysher/alpine-numpy:1.14.0-python3.6-alpine3.7"}})
     def pythonoperator_kubeExecutor(numbers: List[int]) -> List[int]:
         import logging
-        # import numpy as np
+        import numpy as np
+
         logger = logging.getLogger("airflow.task")
         logger.setLevel(logging.DEBUG)
         logger.info(f"passing from previous step {numbers}")
-        # arr = np.array(numbers)
-        print(numbers)
+        arr = np.array(numbers)
+        print(arr)
     
 
     
