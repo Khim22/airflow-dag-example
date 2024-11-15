@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import logging
 from typing import List
+import random
 from airflow.decorators import dag, task
 
 from sequence_sum_of_squares import returnListOfSums
@@ -19,14 +20,14 @@ def taskflow():
     @task(retries=3, retry_delay=timedelta(minutes=5))
     def local_executor() -> List[int]:
         logger.info("Executing local_executor task")
-        # return []
-        # Simulating a long-running task
-        res = returnListOfSums(2)
+        first  = random.randint(random.random(), random.random())
+        second = random.randint(random.random(), random.random())
+        res = [first, second]
+        logger.info(f"Local executor task completed with result: {res}")
         return res
-        # logger.info(f"Local executor task completed with result: {res}")
-        # return res
     
-    mark_start() >> local_executor()
+    mark_start()
+
 
 taskflow()
         
