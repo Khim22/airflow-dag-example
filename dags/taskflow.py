@@ -80,7 +80,7 @@ def taskflow():
             sleep(1)
         print("Finished")
 
-    @task.kubernetes(image="publysher/alpine-numpy:1.14.0-python3.6-alpine3.7", namespace="default", in_cluster=False)
+    @task.kubernetes(image="publysher/alpine-numpy:1.14.0-python3.6-alpine3.7", namespace="airflow", in_cluster=False)
     def print_numpy(numbers):
         import numpy as np
 
