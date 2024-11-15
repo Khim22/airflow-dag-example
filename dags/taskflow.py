@@ -30,7 +30,7 @@ def taskflow():
     
     @task(retries=3, retry_delay=timedelta(minutes=5))
     def sequence_sum_of_squares(numbers: List[int]) -> List[int]:
-        logger.info("Executing sequence_sum_of_squares task", str(numbers))
+        logger.info(f"Executing sequence_sum_of_squares task {numbers}")
         if len(numbers) < 2:
             raise ValueError("Input list should contain at least 2 numbers")
         startNum, endNum = numbers
@@ -40,10 +40,6 @@ def taskflow():
             ans.append(squaresum(i))
         logger.info(f"Sequence sum of squares task completed with result: {ans}")
         return ans
-    
-
-    # def 
-
 
     def squaresum(n: int)-> int:
         logger.info("squaresum", n)
@@ -58,9 +54,34 @@ def taskflow():
 
         return sm
     
+    @task.virtualenv(
+        task_id="virtualenv_python", requirements=["colorama==0.4.0"], system_site_packages=False
+    )
+    def callable_virtualenv(squares: List[int]):
+        """
+        Example function that will be performed in a virtual environment.
+
+        Importing at the module level ensures that it will not attempt to import the
+        library before it is installed.
+        """
+        from time import sleep
+
+        from colorama import Back, Fore, Style
+
+
+        logger.info(f"passing from previous step {squares}")
+        print(Fore.RED + "some red text")
+        print(Back.GREEN + "and with a green background")
+        print(Style.DIM + "and in dim text")
+        print(Style.RESET_ALL)
+        for _ in range(4):
+            print(Style.DIM + "Please wait...", flush=True)
+            sleep(1)
+        print("Finished")
+    
     mark_start()
-    sequence_sum_of_squares(local_executor())
+    sum = sequence_sum_of_squares(local_executor())
+    callable_virtualenv(sum)
 
 
 taskflow()
-        
