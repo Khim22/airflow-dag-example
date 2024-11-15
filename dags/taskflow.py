@@ -79,10 +79,19 @@ def taskflow():
             print(Style.DIM + "Please wait...", flush=True)
             sleep(1)
         print("Finished")
+
+    @task.kubernetes(image="publysher/alpine-numpy:1.14.0-python3.6-alpine3.7", namespace="default", in_cluster=False)
+    def print_numpy(numbers):
+        import numpy as np
+
+        arr = np.array(numbers)
+        print(arr)
+
     
     mark_start()
     sum = sequence_sum_of_squares(local_executor())
     callable_virtualenv(sum)
+    print_numpy(sum)
 
 
 taskflow()
