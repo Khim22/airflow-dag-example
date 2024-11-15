@@ -16,15 +16,16 @@ def taskflow():
         print("Starting")
         logger.info("Mark start")
 
-    # @task(retries=3, retry_delay=timedelta(minutes=5))
-    # def local_executor() -> List[int]:
-    #     logger.info("Executing local_executor task")
+    @task(retries=3, retry_delay=timedelta(minutes=5))
+    def local_executor() -> List[int]:
+        logger.info("Executing local_executor task")
+        return []
         # # Simulating a long-running task
         # res = returnListOfSums(2)
         # logger.info(f"Local executor task completed with result: {res}")
         # return res
     
-    mark_start()
+    mark_start() >> local_executor()
 
 taskflow()
         
