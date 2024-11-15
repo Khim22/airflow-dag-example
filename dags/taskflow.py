@@ -87,7 +87,7 @@ def taskflow():
         # import numpy as np
         logger = logging.getLogger("airflow.task")
         logger.setLevel(logging.DEBUG)
-        # logger.info(f"passing from previous step {numbers}")
+        logger.info(f"passing from previous step {numbers}")
         # arr = np.array(numbers)
         print(numbers)
 
