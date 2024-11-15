@@ -6,6 +6,7 @@ import random
 
 from airflow.decorators import dag, task
 from airflow.operators.python_operator import PythonOperator
+from airflow.models.baseoperator import chain
 
 
 @dag(schedule="@daily", start_date=datetime(2021, 12, 1), catchup=False)
@@ -114,14 +115,14 @@ def taskflow():
 
 
     
-    mark_start()
-    sum = sequence_sum_of_squares(local_executor())
+    # mark_start()
+    # sum = sequence_sum_of_squares(local_executor())
     
-    print_numpy(sum)
-    pythonoperator_kubeExecutor(sum)
-    wait_tasks() >> mark_end()
+    # print_numpy(sum)
+    # pythonoperator_kubeExecutor(sum)
+    # wait_tasks() >> mark_end()
 
-    # chain(local_executor, sequence_sum_of_squares, [print_numpy, pythonoperator_kubeExecutor, wait_tasks])
+    chain(mark_start, local_executor, sequence_sum_of_squares, [callable_virtualenv, print_numpy, pythonoperator_kubeExecutor, wait_tasks], mark_end)
 
 
 
