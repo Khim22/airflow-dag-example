@@ -36,7 +36,6 @@ def taskflow():
         if len(numbers) < 2:
             raise ValueError("Input list should contain at least 2 numbers")
         startNum, endNum = numbers
-        print('hello', startNum, endNum)
         ans = []
         for i in range(startNum, endNum):
             ans.append(squaresum(i))
@@ -82,15 +81,14 @@ def taskflow():
             sleep(1)
         print("Finished")
 
-    # @task.kubernetes(image="publysher/alpine-numpy:1.14.0-python3.6-alpine3.7", namespace="airflow", in_cluster=True)
     @task.kubernetes(image="python:3.11-bookworm", namespace="airflow", in_cluster=True, get_logs=True)
     def print_numpy(numbers):
         import logging
-        # import numpy as np
+
         logger = logging.getLogger("airflow.task")
         logger.setLevel(logging.DEBUG)
         logger.info(f"passing from previous step {numbers}")
-        # arr = np.array(numbers)
+
         print(numbers)
 
     @task(retries=3, retry_delay=timedelta(minutes=1), executor_config={"KubernetesExecutor": {"image": "publysher/alpine-numpy:1.14.0-python3.6-alpine3.7"}})
@@ -104,7 +102,7 @@ def taskflow():
         arr = np.array(numbers)
         print(arr)
     
-    @task(retries=3, retry_delay=timedelta(minutes=5))
+    @task(retries=3, retry_delay=timedelta(minutes=0.1))
     def wait_tasks() -> None:
         raise ValueError("wait_tasks")
         # time.sleep(30)
