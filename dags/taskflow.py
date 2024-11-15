@@ -8,7 +8,7 @@ from sequence_sum_of_squares import returnListOfSums
 
 @dag(schedule="@daily", start_date=datetime(2021, 12, 1), catchup=False)
 def taskflow():
-    logger = logging.getlogger("airflow.task")
+    logger = logging.getLogger("airflow.task")
     logger.setLevel(logging.DEBUG)
 
     @task(retries=3, retry_delay=timedelta(minutes=5))
