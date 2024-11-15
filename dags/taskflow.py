@@ -80,16 +80,18 @@ def taskflow():
             sleep(1)
         print("Finished")
 
-    @task.kubernetes(image="publysher/alpine-numpy:1.14.0-python3.6-alpine3.7", namespace="airflow", in_cluster=True)
-    # @task.kubernetes(image="python:3.11-bookworm", namespace="airflow", in_cluster=True)
+    # @task.kubernetes(image="publysher/alpine-numpy:1.14.0-python3.6-alpine3.7", namespace="airflow", in_cluster=True)
+    @task.kubernetes(image="python:3.11-bookworm", namespace="airflow", in_cluster=True)
     def print_numpy(numbers):
-        # import logging
-        # # import numpy as np
-        # logger = logging.getLogger("airflow.task")
-        # logger.setLevel(logging.DEBUG)
+        import logging
+        # import numpy as np
+        logger = logging.getLogger("airflow.task")
+        logger.setLevel(logging.DEBUG)
         # logger.info(f"passing from previous step {numbers}")
         # arr = np.array(numbers)
         print(numbers)
+
+    
 
     
     mark_start()
