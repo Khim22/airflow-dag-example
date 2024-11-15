@@ -20,6 +20,7 @@ def taskflow():
     @task(retries=3, retry_delay=timedelta(minutes=5))
     def local_executor() -> List[int]:
         logger.info("Executing local_executor task")
+        random.seed(5)
         first  = random.randint(1,100)
         second = random.randint(1,100)
         res = [first, second]
