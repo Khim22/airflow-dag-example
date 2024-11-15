@@ -21,8 +21,8 @@ def taskflow():
     def local_executor() -> List[int]:
         logger.info("Executing local_executor task")
         random.seed(5)
-        first  = random.randint(1,5)
-        second = random.randint(1,5)
+        first  = random.randint(1,100)
+        second = random.randint(1,100)
         res = [first, second]
         res.sort()
         logger.info(f"Local executor task completed with result: {res}")
@@ -30,7 +30,7 @@ def taskflow():
     
     @task(retries=3, retry_delay=timedelta(minutes=5))
     def sequence_sum_of_squares(numbers: List[int]) -> List[int]:
-        logger.info("Executing sequence_sum_of_squares task", numbers)
+        logger.info("Executing sequence_sum_of_squares task", str(numbers))
         if len(numbers) < 2:
             raise ValueError("Input list should contain at least 2 numbers")
         startNum, endNum = numbers
