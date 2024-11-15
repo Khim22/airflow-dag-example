@@ -11,15 +11,20 @@ def taskflow():
     logger = logging.getLogger("airflow.task")
     logger.setLevel(logging.DEBUG)
 
+    @task()
+    def mark_start()-> None:
+        print("Starting")
+        logger.info("Mark start")
+
     @task(retries=3, retry_delay=timedelta(minutes=5))
     def local_executor() -> List[int]:
         logger.info("Executing local_executor task")
-        # Simulating a long-running task
-        res = returnListOfSums(2)
-        logger.info(f"Local executor task completed with result: {res}")
-        return res
+        # # Simulating a long-running task
+        # res = returnListOfSums(2)
+        # logger.info(f"Local executor task completed with result: {res}")
+        # return res
     
     local_executor()
 
-taskflow()
+mark_start >> taskflow()
         
