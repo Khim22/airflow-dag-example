@@ -6,7 +6,8 @@ import random
 from airflow.decorators import dag, task
 from airflow.operators.python_operator import PythonOperator
 
-from sequence_sum_of_squares import returnListOfSums
+# from sequence_sum_of_squares import returnListOfSums
+
 
 
 @dag(schedule="@daily", start_date=datetime(2021, 12, 1), catchup=False)
@@ -37,6 +38,26 @@ def taskflow():
         sums = PythonOperator(python_callable=returnListOfSums, op_kwargs={"startNum":numbers[0], "endNum": numbers[1]})
         logger.info(f"Sequence sum of squares task completed with result: {sums}")
         return sums
+    
+    def returnListOfSums(startNum:int, endNum: int) -> List[int]:
+        logger = logging.getLogger("airflow.task")
+        logger.info("returnListOfSums")
+        ans = []
+        for i in range(startNum, endNum):
+            ans.append(squaresum(i))
+        return ans
+
+
+    def squaresum(n: int)-> int:
+        # Iterate i from 1
+        # and n finding
+        # square of i and
+        # add to sum.
+        sm = 0
+        for i in range(1, n+1):
+            sm = sm + (i * i)
+
+        return sm
     
     mark_start()
     sequence_sum_of_squares(local_executor())
