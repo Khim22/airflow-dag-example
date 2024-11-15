@@ -27,6 +27,7 @@ def taskflow():
         return res
     
     mark_start()
+    local_executor()
 
 
 taskflow()
