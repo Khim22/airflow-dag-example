@@ -6,9 +6,6 @@ import random
 from airflow.decorators import dag, task
 from airflow.operators.python_operator import PythonOperator
 
-# from sequence_sum_of_squares import returnListOfSums
-
-
 
 @dag(schedule="@daily", start_date=datetime(2021, 12, 1), catchup=False)
 def taskflow():
@@ -36,17 +33,12 @@ def taskflow():
         logger.info("Executing sequence_sum_of_squares task", numbers)
         if len(numbers) < 2:
             raise ValueError("Input list should contain at least 2 numbers")
-        sums = PythonOperator(task_id='returnListOfSums',task_python_callable=returnListOfSums, op_kwargs={"startNum":numbers[0], "endNum": numbers[1]})
-        logger.info(f"Sequence sum of squares task completed with result: {sums}")
-        return sums
-    
-    def returnListOfSums(startNum:int, endNum: int) -> List[int]:
-        # logger = logging.getLogger("airflow.task")
-        # logger.info("returnListOfSums")
+        startNum, endNum = numbers
         print('hello', startNum, endNum)
         ans = []
         for i in range(startNum, endNum):
             ans.append(squaresum(i))
+        logger.info(f"Sequence sum of squares task completed with result: {ans}")
         return ans
 
 
