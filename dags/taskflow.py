@@ -11,7 +11,7 @@ def taskflow():
     logger = logging.getLogger("airflow.task")
     logger.setLevel(logging.DEBUG)
 
-    @task()
+    @task
     def mark_start()-> None:
         print("Starting")
         logger.info("Mark start")
