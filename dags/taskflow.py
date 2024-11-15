@@ -122,7 +122,7 @@ def taskflow():
     exec_res = pythonoperator_kubeExecutor(seq_res)
     seq_res >> wait_tasks()
 
-    [callable_res ,print_res , exec_res] >> mark_end()
+    [callable_res ,print_res , exec_res, wait_tasks()] >> mark_end()
 
 
     # mark_st
