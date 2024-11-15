@@ -80,12 +80,13 @@ def taskflow():
             sleep(1)
         print("Finished")
 
-    @task.kubernetes(image="publysher/alpine-numpy:1.14.0-python3.6-alpine3.7", namespace="airflow", in_cluster=False)
+    # @task.kubernetes(image="publysher/alpine-numpy:1.14.0-python3.6-alpine3.7", namespace="airflow", in_cluster=True)
+    @task.kubernetes(image="python:3.11-bookworm", namespace="airflow", in_cluster=True)
     def print_numpy(numbers):
-        import numpy as np
+        # import numpy as np
 
-        arr = np.array(numbers)
-        print(arr)
+        # arr = np.array(numbers)
+        print(numbers)
 
     
     mark_start()
