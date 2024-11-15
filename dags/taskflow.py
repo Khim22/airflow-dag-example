@@ -91,6 +91,15 @@ def taskflow():
         # arr = np.array(numbers)
         print(numbers)
 
+    @task(retries=3, retry_delay=timedelta(minutes=1), executor_config={"KubernetesExecutor": {"image": "publysher/alpine-numpy:1.14.0-python3.6-alpine3.7"}})
+    def pythonoperator_kubeExecutor(numbers: List[int]) -> List[int]:
+        import logging
+        # import numpy as np
+        logger = logging.getLogger("airflow.task")
+        logger.setLevel(logging.DEBUG)
+        logger.info(f"passing from previous step {numbers}")
+        # arr = np.array(numbers)
+        print(numbers)
     
 
     
@@ -98,6 +107,7 @@ def taskflow():
     sum = sequence_sum_of_squares(local_executor())
     callable_virtualenv(sum)
     print_numpy(sum)
+    pythonoperator_kubeExecutor(sum)
 
 
 taskflow()
