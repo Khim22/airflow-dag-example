@@ -121,7 +121,8 @@ def taskflow():
     # print_numpy(sum)
     # pythonoperator_kubeExecutor(sum)
     # wait_tasks() >> mark_end()
-    mark_start() >> local_executor() >> sequence_sum_of_squares
+    # mark_start() >> local_executor() >> sequence_sum_of_squares
+    chain(mark_start(), local_executor())
     # mark_start() >> local_executor() >> sequence_sum_of_squares >> [callable_virtualenv, print_numpy, pythonoperator_kubeExecutor, wait_tasks] >> mark_end
     # chain(mark_start, local_executor, sequence_sum_of_squares, [callable_virtualenv, print_numpy, pythonoperator_kubeExecutor, wait_tasks], mark_end)
 
