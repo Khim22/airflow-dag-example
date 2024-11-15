@@ -104,8 +104,8 @@ def taskflow():
     
     @task(retries=3, retry_delay=timedelta(minutes=0.1))
     def wait_tasks() -> None:
-        raise ValueError("wait_tasks")
-        # time.sleep(30)
+        # raise ValueError("wait_tasks")
+        time.sleep(10)
         
     @task
     def mark_end()-> None:
