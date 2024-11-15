@@ -114,7 +114,9 @@ def taskflow():
         logger.info("Mark Ending")
 
 
-    mark_start()>> sequence_sum_of_squares(local_executor())
+    local_executor_res = local_executor()
+    mark_start()>> local_executor_res
+    sequence_sum_of_squares(local_executor_res)
     # mark_start() >> local_executor() >> sequence_sum_of_squares >> [callable_virtualenv, print_numpy, pythonoperator_kubeExecutor, wait_tasks] >> mark_end
     # chain(mark_start, local_executor, sequence_sum_of_squares, [callable_virtualenv, print_numpy, pythonoperator_kubeExecutor, wait_tasks], mark_end)
 
