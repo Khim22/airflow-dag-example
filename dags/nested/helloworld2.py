@@ -6,8 +6,8 @@ from airflow.decorators import dag, task
 def helloWorld():
     @task
     def helloWorld():
-        time.sleep(5)
-        print("Hello World!")
+        time.sleep(2)
+        print("Hello World 2")
 
     helloWorld()
 
